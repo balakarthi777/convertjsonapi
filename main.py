@@ -470,4 +470,6 @@ def extract_shipping_via(text: str) -> Optional[str]: return None
  
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8008)
+    port = int(os.environ.get("PORT", 8000))  # Default to 8000 if not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
+    
