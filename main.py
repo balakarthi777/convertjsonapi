@@ -7,6 +7,8 @@ import io
 import json
 from typing import Dict, Any
 import os
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 
 # main.py - Fixed version with better error handling
@@ -19,6 +21,17 @@ from pydantic import BaseModel
  
 
 app = FastAPI(title="PDF to JSON Converter API - IIS")
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200", "https://cprofiterp.dyndns.biz"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 @app.get("/")
 async def root():
@@ -467,6 +480,10 @@ def extract_governing_terms(text: str) -> Optional[str]:
 def extract_project_number(text: str) -> Optional[str]: return None
 def extract_sales_order_number(text: str) -> Optional[str]: return None
 def extract_shipping_via(text: str) -> Optional[str]: return None
+
+@app.options("/convert/po-pdf")
+async def options_convert_pdf():
+    return {"status": "ok"}
  
 if __name__ == "__main__":
     import uvicorn
