@@ -12,12 +12,9 @@ import os
 # main.py - Fixed version with better error handling
 from datetime import datetime
 import re
-import io
+ 
 from typing import Dict, Any, List, Optional
-from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import JSONResponse
-import PyPDF2
-import pdfplumber
+ 
 from pydantic import BaseModel
  
 
